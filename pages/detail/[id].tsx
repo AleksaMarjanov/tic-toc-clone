@@ -10,10 +10,9 @@ import axios from "axios";
 
 import { BASE_URL } from "../../utils";
 import { Video } from "../../types";
-import useAuthStore from './../../store/authStore';
+import useAuthStore from "./../../store/authStore";
 import LikeButton from "../../components/LikeButton";
 import Comments from "../../components/Comments";
-
 
 interface IProps {
   postDetails: Video;
@@ -22,10 +21,12 @@ interface IProps {
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
   const [playing, setPlaying] = useState(false);
+  const [comment, setComment] = useState("");
   const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const [isPostingComment, setIsPostingComment] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
-  const { userProfile } : any = useAuthStore();
+  const { userProfile }: any = useAuthStore();
 
   const onVideoClick = () => {
     if (playing) {
@@ -44,16 +45,36 @@ const Detail = ({ postDetails }: IProps) => {
   }, [post, isVideoMuted]);
 
   const handleLike = async (like: boolean) => {
-    if(userProfile ) {
+    if (userProfile) {
       const { data } = await axios.put(`${BASE_URL}/api/like`, {
         userId: userProfile._id,
         postId: post._id,
-        like
-      })
+        like,
+      });
 
-      setPost({ ...post, likes: data.likes })
+      setPost({ ...post, likes: data.likes });
     }
-  }
+  };
+
+  const addComment = async (e)  => {
+    e.preventDefault();
+
+    if (userProfile && comment) {
+      setIsPostingComment(true);
+
+      const {data} = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+        userId: userProfile._id,
+        comment,
+      });
+
+      setPost({ ...post, comments: data.comments });
+      setComment('');
+      setIsPostingComment(false);
+    }
+  };
+
+  console.log({post})
+
 
 
   if (!post) return null;
@@ -137,11 +158,19 @@ const Detail = ({ postDetails }: IProps) => {
 
           <div className="mt-10 px-10">
             {userProfile && (
-              <LikeButton likes={post.likes} handleLike={() => handleLike(true)} handleDislike={() => handleLike(false)} />
+              <LikeButton
+                likes={post.likes}
+                handleLike={() => handleLike(true)}
+                handleDislike={() => handleLike(false)}
+              />
             )}
           </div>
-          <Comments 
-
+          <Comments
+            comment={comment}
+            setComment={setComment}
+            addComment={addComment}
+            comments={post.comments}
+            isPostingComment={isPostingComment}
           />
         </div>
       </div>
@@ -150,7 +179,7 @@ const Detail = ({ postDetails }: IProps) => {
 };
 
 export const getServerSideProps = async ({
-  params: { id }
+  params: { id },
 }: {
   params: { id: string };
 }) => {
