@@ -21,13 +21,14 @@ interface IComment {
     postedby: { _ref: string; _id: string };
 }
 
+
 const Comments = ({ comment, setComment, addComment, comments, isPostingComment} : IProps) => {
     const { userProfile } = useAuthStore()
 
     return (
     <div className='border-t-2 border-gray-200 pt-4 px-10 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]'>
         <div className='overflow-scroll lg:h-[475px]'>
-            {comment?.length ? (
+            {comments?.length ? (
                 <div>videos</div>
             ): (
                 <NoResults text="No comments yet" />
