@@ -9,7 +9,7 @@ import { IoMdAdd } from "react-icons/io";
 
 import useAuthStore from "../store/authStore";
 
-import Logo from "../utils/tiktik-logo.png";
+import Logo from "../utils/cancan-logo.png";
 import { createOrGetUser } from "./../utils/index";
 
 const Navbar = () => {
