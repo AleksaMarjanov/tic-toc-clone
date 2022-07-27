@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { FaCloudUploadAlt, FaCloutUploadAlt } from "react-icons/fa";
+import {  FaCloudUploadAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { SanityAssetDocument } from "@sanity/client";
@@ -71,7 +71,7 @@ const Upload = () => {
 
   return (
     <div className="flex w-full h-full absolute left-4 top-[60px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center">
-      <div className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-between items-center p-14 p-6 w-[60%]">
+      <div className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-between items-center p-14 w-[60%]">
         <div>
           <div>
             <p className="text-2xl font-bold">Upload Video</p>
