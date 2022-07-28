@@ -19,6 +19,10 @@ const Navbar = () => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('')
 
+  useEffect(() => {
+    setUser(userProfile);
+  }, [userProfile])
+
     const handleSearch = (e : { preventDefault: () => void }) => {
       e.preventDefault();
 
