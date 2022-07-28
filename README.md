@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# <a href="https://cancan-clone.vercel.app/">Live Demo</a>
+
+<img src="https://i.ibb.co/17rFfvv/Screenshot-2022-07-27-185802.png" width="800px" >
+
 ## Getting Started
 
 First, run the development server:
